@@ -27,8 +27,6 @@ class TripCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(tripImageView)
         
         blurLabel = UILabel()
-//        view.frame = CGRect(x: 0, y: 0, width: 361, height: 40)
-//        blurLabel.backgroundColor = .white
         blurLabel.layer.backgroundColor = blurLabelColor.cgColor
         blurLabel.layer.borderColor = blurLabelColor.cgColor
         blurLabel.layer.cornerRadius = 20
@@ -60,10 +58,6 @@ class TripCollectionViewCell: UICollectionViewCell {
         setUpConstraints()
     }
     func setUpConstraints() {
-        let infoboxheight: CGFloat = 60
-        let padding: CGFloat = 5
-        
-        
         NSLayoutConstraint.activate([
             tripImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             tripImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -72,12 +66,8 @@ class TripCollectionViewCell: UICollectionViewCell {
         ])
         
         NSLayoutConstraint.activate([
-//            blurLabel.widthAnchor.constraint(equalToConstant: 361)
-//            blurLabel.heightAnchor.constraint(equalToConstant: 40),
             blurLabel.leadingAnchor.constraint(equalTo: tripImageView.leadingAnchor),
-//            blurLabel.topAnchor.constraint(equalTo: tripImageView.topAnchor)
             blurLabel.bottomAnchor.constraint(equalTo: tripImageView.bottomAnchor),
-//            blurLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             blurLabel.widthAnchor.constraint(equalToConstant: contentView.frame.width),
             blurLabel.heightAnchor.constraint(equalToConstant: 40)
         ])
@@ -90,20 +80,17 @@ class TripCollectionViewCell: UICollectionViewCell {
         ])
         
         NSLayoutConstraint.activate([
-        //            tripNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                tripNameLabel.leadingAnchor.constraint(equalTo: compassIcon.trailingAnchor, constant: 10),
-                tripNameLabel.topAnchor.constraint(equalTo: blurLabel.topAnchor, constant: 11),
-        //            tripNameLabel.topAnchor.constraint(equalTo: tripImageView.bottomAnchor, constant: padding),
-//                    tripNameLabel.heightAnchor.constraint(equalToConstant: 30)
+            tripNameLabel.leadingAnchor.constraint(equalTo: compassIcon.trailingAnchor, constant: 10),
+            tripNameLabel.topAnchor.constraint(equalTo: blurLabel.topAnchor, constant: 11),
+
         ])
         
         NSLayoutConstraint.activate([
-//            tripDateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             tripDateLabel.topAnchor.constraint(equalTo: tripNameLabel.topAnchor),
             tripDateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-//            tripDateLabel.heightAnchor.constraint(equalToConstant: 30)
-                ])
+        ])
     }
+    
     func configure(for trip: Trip){
         let tripName = trip.tripName
         let tripDate = trip.tripStartDate

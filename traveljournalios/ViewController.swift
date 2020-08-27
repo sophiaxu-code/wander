@@ -74,21 +74,12 @@ class ViewController: UIViewController {
         addTripButton.setTitleColor(.white, for: .normal)
         addTripButton.addTarget(self, action: #selector(addItem), for: .touchUpInside)
         view.addSubview(addTripButton)
-        
-        
-        // Testing Hard Code
-
-
+    
         trips = []
-
-
-
         setupConstraints()
-//        getTrips()
     }
     
     func setupConstraints(){
-        let padding: CGFloat = 45
         NSLayoutConstraint.activate([
             myTripsLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 126),
             myTripsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)

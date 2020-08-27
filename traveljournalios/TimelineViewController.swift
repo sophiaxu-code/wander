@@ -28,6 +28,13 @@ class TimelineViewController: UIViewController {
     var deselectedCategoryCell: TimelineCategoryCollectionViewCell!
     let categoryCellReuseIdentifier = "categoryCellReuseIdentifier"
     var categories : [String]!
+    
+    func initUILabel(text: String) -> UILabel {
+        let newUILabel: UILabel! = UILabel()
+        newUILabel.text = text
+        newUILabel.textColor = mainFontColor
+        return newUILabel
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,17 +48,11 @@ class TimelineViewController: UIViewController {
         cancelButton.addTarget(self, action: #selector(cancelAction), for: .touchUpInside)
         view.addSubview(cancelButton)
         
-        
-        
-        timelineLabel = UILabel()
-        timelineLabel.text = "Timeline"
-        timelineLabel.textColor = mainFontColor
+        timelineLabel = initUILabel(text: "Timeline")
         timelineLabel.font = UIFont(name: "GillSans", size: 28)
         view.addSubview(timelineLabel)
         
-        categoryLabel = UILabel()
-        categoryLabel.text = "Choose a category:"
-        categoryLabel.textColor = mainFontColor
+        categoryLabel = initUILabel(text: "Choose a category:")
         categoryLabel.font = UIFont(name: "GillSans", size: 22)
         view.addSubview(categoryLabel)
         
@@ -70,10 +71,7 @@ class TimelineViewController: UIViewController {
         categoryCollectionView.dataSource = self
         categoryCollectionView.delegate = self
         
-        
-        dateLabel = UILabel()
-        dateLabel.text = "Date:"
-        dateLabel.textColor = mainFontColor
+        dateLabel = initUILabel(text: "Date:")
         dateLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         view.addSubview(dateLabel)
         
@@ -82,9 +80,7 @@ class TimelineViewController: UIViewController {
         dateTextField.borderStyle = .roundedRect
         view.addSubview(dateTextField)
         
-        tripLocationLabel = UILabel()
-        tripLocationLabel.text = "Trip Location: "
-        tripLocationLabel.textColor = mainFontColor
+        tripLocationLabel = initUILabel(text: "Trip Location: ")
         tripLocationLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         view.addSubview(tripLocationLabel)
         
@@ -93,9 +89,7 @@ class TimelineViewController: UIViewController {
         tripLocationTextField.borderStyle = .roundedRect
         view.addSubview(tripLocationTextField)
         
-        activityName = UILabel()
-        activityName.text = "Activity Name:"
-        activityName.textColor = mainFontColor
+        activityName = initUILabel(text: "Activity Name:")
         activityName.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         view.addSubview(activityName)
         
@@ -103,8 +97,6 @@ class TimelineViewController: UIViewController {
         activityTextField.placeholder = "Enter Activity Name: "
         activityTextField.borderStyle = .roundedRect
         view.addSubview((activityTextField))
-        
-        
         
         descriptionTextField = UITextField()
         descriptionTextField.placeholder = "Write about this moment..."
@@ -114,7 +106,6 @@ class TimelineViewController: UIViewController {
         descriptionTextField.layer.borderWidth = 1
         descriptionTextField.layer.borderColor = mainFontColor.cgColor
         view.addSubview(descriptionTextField)
-        
         
         saveButton = UIButton()
         saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
@@ -126,9 +117,7 @@ class TimelineViewController: UIViewController {
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(saveButton)
         
-
         setupConstraints()
-        // Do any additional setup after loading the view.
     }
     @objc func saveButtonPressed(){
         if let activityName = activityTextField.text, activityName != "" {
@@ -139,13 +128,10 @@ class TimelineViewController: UIViewController {
                             let timelineEventCreated = TimelineEvent(category: categoryName, activityName: activityName, tripLocation: tripLocation, date: tripDate, tripDescription: tripDescription)
                              delegate?.addEvent(to: timelineEventCreated)
                         }
-                        
                     }
-                   
                 }
                }
     }
-              
         dismiss(animated: true, completion: nil )
     }
     
@@ -158,7 +144,6 @@ class TimelineViewController: UIViewController {
         timelineLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.centerX.equalTo(self.view)
-
         }
         
         cancelButton.snp.makeConstraints { make in
@@ -167,10 +152,12 @@ class TimelineViewController: UIViewController {
             make.height.equalTo(23)
             make.width.equalTo(62)
         }
+        
         categoryLabel.snp.makeConstraints { make in
             make.top.equalTo(timelineLabel).offset(40)
             make.left.equalTo(view.safeAreaLayoutGuide).offset(20)
         }
+        
         NSLayoutConstraint.activate([
             categoryCollectionView.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor),
             categoryCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
@@ -178,11 +165,9 @@ class TimelineViewController: UIViewController {
             categoryCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
         ])
         
-        
         activityName.snp.makeConstraints { make in
             make.top.equalTo(categoryCollectionView.snp.bottom).offset(10)
             make.left.equalTo(view.safeAreaLayoutGuide).offset(20)
-                  
         }
               
         activityTextField.snp.makeConstraints { make in
@@ -191,20 +176,17 @@ class TimelineViewController: UIViewController {
             make.centerY.equalTo(activityName)
         }
         
-        
         tripLocationLabel.snp.makeConstraints { make in
             make.top.equalTo(activityName.snp.bottom).offset(20)
             make.left.equalTo(view.safeAreaLayoutGuide).offset(20)
-            
         }
+        
         tripLocationTextField.snp.makeConstraints { make in
             make.top.equalTo(activityName.snp.bottom).offset(20)
             make.centerY.equalTo(tripLocationLabel)
             make.left.equalTo(tripLocationLabel.snp.right).offset(20)
         }
        
-        
-        
         dateLabel.snp.makeConstraints { make in
             make.top.equalTo(tripLocationLabel.snp.bottom).offset(20)
             make.left.equalTo(view.safeAreaLayoutGuide).offset(20)
@@ -222,10 +204,10 @@ class TimelineViewController: UIViewController {
             make.right.equalTo(view.safeAreaLayoutGuide).offset(-20)
             make.height.equalTo(300)
         }
+        
         saveButton.snp.makeConstraints{ make in
             make.top.equalTo(descriptionTextField.snp.bottom).offset(20)
             make.centerX.equalTo(self.view)
-            
         }
     }
 }
@@ -239,8 +221,8 @@ extension TimelineViewController: UICollectionViewDataSource{
         cell.configure(for: categories[indexPath.row])
         return cell
     }
-    
 }
+
 extension TimelineViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = (collectionView.frame.width - (3*20)) / 4.0

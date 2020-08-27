@@ -45,6 +45,33 @@ class EditTripViewController: UIViewController, UINavigationControllerDelegate, 
     let fontColor = UIColor(red: 42/255, green: 54/255, blue: 157/255, alpha: 1)
     let lineColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1).cgColor
 
+    func initImageView(imageName: String) -> UIImageView {
+        let newImageView: UIImageView! = UIImageView()
+        newImageView.image = UIImage(named: imageName)
+        newImageView.clipsToBounds = true
+        newImageView.contentMode = .scaleAspectFit
+        newImageView.translatesAutoresizingMaskIntoConstraints = false
+        return newImageView
+    }
+    
+    func initTextField(text: String) -> UITextField {
+        let newTextField: UITextField! = UITextField()
+        newTextField.text = text
+        newTextField.font = UIFont(name: "GillSans", size: 22)
+        newTextField.textColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
+        newTextField.clearsOnBeginEditing = true
+        newTextField.layer.borderColor = UIColor.white.cgColor
+        newTextField.translatesAutoresizingMaskIntoConstraints = false
+        return newTextField
+    }
+    
+    func initView(y: CGFloat) -> UIView {
+        let newView: UIView! = UIView(frame: CGRect(x: 0, y: y, width: view.frame.width, height: 1.0))
+        newView.layer.borderWidth = 1.0
+        newView.layer.borderColor = lineColor
+        return newView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -62,39 +89,16 @@ class EditTripViewController: UIViewController, UINavigationControllerDelegate, 
         doneButton.addTarget(self, action: #selector(doneAction), for: .touchUpInside)
         view.addSubview(doneButton)
         
-        pinIcon = UIImageView()
-        pinIcon.image = UIImage(named: "pin")
-        pinIcon.clipsToBounds = true
-        pinIcon.contentMode = .scaleAspectFit
-        pinIcon.translatesAutoresizingMaskIntoConstraints = false
+        pinIcon = initImageView(imageName: "pin")
+        startIcon = initImageView(imageName: "start")
+        endIcon = initImageView(imageName: "end")
+        globeIcon = initImageView(imageName: "globe")
+        cameraIcon = initImageView(imageName: "camera")
+
         view.addSubview(pinIcon)
-        
-        startIcon = UIImageView()
-        startIcon.image = UIImage(named: "start")
-        startIcon.clipsToBounds = true
-        startIcon.contentMode = .scaleAspectFit
-        startIcon.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(startIcon)
-        
-        endIcon = UIImageView()
-        endIcon.image = UIImage(named: "end")
-        endIcon.clipsToBounds = true
-        endIcon.contentMode = .scaleAspectFit
-        endIcon.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(endIcon)
-        
-        globeIcon = UIImageView()
-        globeIcon.image = UIImage(named: "globe")
-        globeIcon.clipsToBounds = true
-        globeIcon.contentMode = .scaleAspectFit
-        globeIcon.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(globeIcon)
-        
-        cameraIcon = UIImageView()
-        cameraIcon.image = UIImage(named: "camera")
-        cameraIcon.clipsToBounds = true
-        cameraIcon.contentMode = .scaleAspectFit
-        cameraIcon.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(cameraIcon)
         
         selectedImageView = UIImageView()
@@ -106,39 +110,15 @@ class EditTripViewController: UIViewController, UINavigationControllerDelegate, 
         selectedImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(selectedImageView)
         
-        tripStart = UITextField()
-        tripStart.text = "Start date"
-        tripStart.font = UIFont(name: "GillSans", size: 22)
-        tripStart.textColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
-        tripStart.clearsOnBeginEditing = true
-        tripStart.layer.borderColor = UIColor.white.cgColor
-        tripStart.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tripStart)
-        
-        tripEnd = UITextField()
-        tripEnd.text = "End date"
-        tripEnd.font = UIFont(name: "GillSans", size: 22)
-        tripEnd.textColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
-        tripEnd.clearsOnBeginEditing = true
-        tripEnd.layer.borderColor = UIColor.white.cgColor
-        tripEnd.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tripEnd)
-        
-        tripLoc = UITextField()
-        tripLoc.text = "Trip Location"
-        tripLoc.font = UIFont(name: "GillSans", size: 22)
-        tripLoc.textColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
-        tripLoc.clearsOnBeginEditing = true
-        tripLoc.layer.borderColor = UIColor.white.cgColor
-        tripLoc.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tripLoc)
-        
-        tripName = UITextField()
-        tripName.clearsOnBeginEditing = true
-        tripName.text = "Trip Name"
-        tripName.font = UIFont(name: "GillSans", size: 22)
+        tripStart = initTextField(text: "Start date")
+        tripEnd = initTextField(text: "End date")
+        tripLoc = initTextField(text: "Trip Location")
+        tripName = initTextField(text: "Trip Name")
         tripName.textColor = .black
-        tripName.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(tripStart)
+        view.addSubview(tripEnd)
+        view.addSubview(tripLoc)
         view.addSubview(tripName)
         
         changeTitleLabel = UILabel()
@@ -169,6 +149,12 @@ class EditTripViewController: UIViewController, UINavigationControllerDelegate, 
         imageRect.layer.borderColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1).cgColor
         view.addSubview(imageRect)
         
+        editTripLabel = UILabel()
+        editTripLabel.text = "Edit Trip"
+        editTripLabel.textColor = fontColor
+        editTripLabel.font = UIFont(name: "GillSans", size: 28)
+        view.addSubview(editTripLabel)
+        
         photoButton = UIButton()
         photoButton.backgroundColor = .white
         photoButton.setTitle("Change cover photo", for: .normal)
@@ -181,40 +167,18 @@ class EditTripViewController: UIViewController, UINavigationControllerDelegate, 
         photoButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(photoButton)
         
-        lineView1 = UIView(frame: CGRect(x: 0, y: 50, width: view.frame.width, height: 1.0))
-        lineView1.layer.borderWidth = 1.0
-        lineView1.layer.borderColor = lineColor
+        lineView1 = initView(y: 50)
+        lineView2 = initView(y: 197)
+        lineView3 = initView(y: 384.5)
+        lineView4 = initView(y: 456)
+        lineView5 = initView(y: 526)
+
         view.addSubview(lineView1)
-        
-        lineView2 = UIView(frame: CGRect(x: 0, y: 197, width: view.frame.width, height: 1.0))
-        lineView2.layer.borderWidth = 1.0
-        lineView2.layer.borderColor = lineColor
         view.addSubview(lineView2)
-
-        // Do any additional setup after loading the view.
-        editTripLabel = UILabel()
-        editTripLabel.text = "Edit Trip"
-        editTripLabel.textColor = fontColor
-        editTripLabel.font = UIFont(name: "GillSans", size: 28)
-        view.addSubview(editTripLabel)
-    
-
-        lineView3 = UIView(frame: CGRect(x: 0, y: 384.5, width: view.frame.width, height: 1.0))
-        lineView3.layer.borderWidth = 1.0
-        lineView3.layer.borderColor = lineColor
         view.addSubview(lineView3)
-        
-        lineView4 = UIView(frame: CGRect(x: 0, y: 456, width: view.frame.width, height: 1.0))
-        lineView4.layer.borderWidth = 1.0
-        lineView4.layer.borderColor = lineColor
         view.addSubview(lineView4)
-        
-        lineView5 = UIView(frame: CGRect(x: 0, y: 526, width: view.frame.width, height: 1.0))
-        lineView5.layer.borderWidth = 1.0
-        lineView5.layer.borderColor = lineColor
         view.addSubview(lineView5)
 
-        
         setUpConstraints()
     }
     

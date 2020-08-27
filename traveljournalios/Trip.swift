@@ -18,7 +18,6 @@ class Trip: Codable {
     var tripStartDate: String
     var tripEndDate: String
     var tripLocation: String
-//    var imageName: String
     var imageData: Data?
     var tripDescription: String
     var timelineEvents: [TimelineEvent]
@@ -26,12 +25,10 @@ class Trip: Codable {
 
 
     init(tripName: String, tripStartDate: String, tripEndDate: String, tripLocation: String, imageData: Data, tripDescription: String, timelineEvents: [TimelineEvent]){
-
         self.tripName = tripName
         self.tripStartDate = tripStartDate
         self.tripEndDate = tripEndDate
         self.tripLocation = tripLocation
-
         self.imageData = imageData
         self.tripDescription = tripDescription
         self.timelineEvents = timelineEvents

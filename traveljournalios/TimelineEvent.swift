@@ -15,7 +15,6 @@ class TimelineEvent: Codable {
     var date: String!
     var tripDescription: String!
     
-    
     init(category: String, activityName: String, tripLocation: String, date: String, tripDescription: String) {
         self.category = category
         self.activityName = activityName

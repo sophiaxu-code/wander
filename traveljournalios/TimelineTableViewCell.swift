@@ -8,11 +8,6 @@
 
 import UIKit
 
-//protocol SaveTextDelegate: class {
-//    func saveText(to categoryName: String, to activityName: String, to tripLocation: String, to tripDate: String, to tripDescription: String)
-//}
-
-
 class TimelineTableViewCell: UITableViewCell {
     var activityNameLabel: UILabel!
     var tripLocationLabel: UILabel!
@@ -24,30 +19,29 @@ class TimelineTableViewCell: UITableViewCell {
     let fillColor = UIColor(red: 42/255, green: 54/255, blue: 157/255, alpha: 0.15)
     let fillColorGrey = UIColor (red: 42/255, green: 54/255, blue: 157/255, alpha: 0.04)
     
+    func initUILabel(fontName: String, fontSize: CGFloat) -> UILabel {
+        let newUILabel: UILabel! = UILabel()
+        newUILabel.textColor = .black
+        newUILabel.font = UIFont(name: fontName, size: fontSize)
+        return newUILabel
+    }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
        
         categoryImageView = UIImageView()
         contentView.addSubview(categoryImageView)
         
-        activityNameLabel = UILabel()
-        activityNameLabel.font = UIFont( name: "GillSans-Bold", size: 13)
-        activityNameLabel.textColor = .black
+        activityNameLabel = initUILabel(fontName: "GillSans-Bold", fontSize: 13)
+        tripLocationLabel = initUILabel(fontName: "GillSans-Italic", fontSize: 11)
+        dateLabel = initUILabel(fontName: "GillSans", fontSize: 14)
+        
         contentView.addSubview(activityNameLabel)
-       
-        tripLocationLabel = UILabel()
-        tripLocationLabel.textColor = .black
-        tripLocationLabel.font = UIFont(name: "GillSans-Italic", size: 11)
         contentView.addSubview(tripLocationLabel)
+        contentView.addSubview(dateLabel)
       
         locationPinImageView = UIImageView()
         contentView.addSubview(locationPinImageView)
-      
-        dateLabel = UILabel()
-        dateLabel.textColor = .black
-        dateLabel.font = UIFont(name: "GillSans", size:14)
-        contentView.addSubview(dateLabel)
-       
+             
         tripDescriptionTextView = UITextView()
         tripDescriptionTextView.font = UIFont(name: "GillSans", size:11)
         tripDescriptionTextView.textColor = .black
@@ -55,8 +49,6 @@ class TimelineTableViewCell: UITableViewCell {
         tripDescriptionTextView.isEditable = false
         tripDescriptionTextView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(tripDescriptionTextView)
-        
-        
         
         setUpConstraints()
         
@@ -70,12 +62,14 @@ class TimelineTableViewCell: UITableViewCell {
             make.height.equalTo(25.5)
             make.width.equalTo(30)
         }
+        
         activityNameLabel.snp.makeConstraints{ make in
             make.top.equalTo(self.safeAreaLayoutGuide).offset(10)
             make.left.equalTo(categoryImageView.snp.right).offset(logolabelspacing)
             make.centerY.equalTo(categoryImageView.snp.centerY)
             
         }
+        
         dateLabel.snp.makeConstraints{ make in
             make.top.equalTo(activityNameLabel.snp.top)
             make.right.equalTo(self.safeAreaLayoutGuide).offset(-7)
@@ -101,11 +95,8 @@ class TimelineTableViewCell: UITableViewCell {
             make.height.equalTo(60)
         }
     }
-
-    
     
     func configure(for event: TimelineEvent) {
-
         contentView.backgroundColor = fillColor
         activityNameLabel.text = event.activityName
         tripLocationLabel.text = "Location: " + event.tripLocation
@@ -113,17 +104,9 @@ class TimelineTableViewCell: UITableViewCell {
         categoryImageView.image = UIImage(named: event.category + "logo")
         locationPinImageView.image = UIImage(named: "locationpin")
         tripDescriptionTextView.text = event.tripDescription
-     
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
-
-//extension TimelineTableViewCell: SaveTextDelegate {
-//    func saveText(to categoryName: String, to activityName: String, to tripLocation: String, to tripDate: String, to tripDescription: String) {
-//        
-//        
-//    }
-//}
