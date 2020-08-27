@@ -14,7 +14,7 @@ Tony Bridges: Design
 Link to Robel Ayalew's Backend: https://github.com/Robelion/Travel-Journal-Backend
 
 Screenshots of App:
-<img src="Screenshot/Home Screen.png" width="200">
+<img src="home_screen.png" width="200">
 
 iOS Features:
 - AutoLayout using SnapKit and NSLayoutConstraint
