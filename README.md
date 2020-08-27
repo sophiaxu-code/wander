@@ -28,5 +28,8 @@ iOS Features:
 - UINavigationController: options to change screens to edit trip, add trip, add to timeline, and view more information about a trip.
 - Integration with an API: NetworkManager is set up and ready for future potential integration.
 
-<!-- Link to Screenshot Photos : https://github.com/sophiaxu-code/traveljournal/issues/1 -->
-# wander
+Future Improvements:
+- Reduce repetitive code/improve code style
+- Allow images to be uploaded from user phone (current is a sample photo album)
+- Check for validity of user input; display alerts/errors when applicable
+- Enable user login/authentication
